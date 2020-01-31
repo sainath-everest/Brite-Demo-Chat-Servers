@@ -32,24 +32,27 @@
             <div class="connecting">
                 Connecting...
             </div>
-            <div>
             <ul id="messageArea">
 
             </ul>
-            <ul id="userListArea">
-            </ul>
-            </div>
-            
             <form id="messageForm" name="messageForm" nameForm="messageForm">
                 <div class="form-group">
                     <div class="input-group clearfix">
-                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+                    	 <input type="text" id="receiver" placeholder="Type a receiver name" autocomplete="off" class="form-control"/><br/>
+                         <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
                         <button type="submit" class="primary">Send</button>
+    
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    
+    <script>
+		function myFunction() {
+		  location.replace("personal-chat.html")
+		}		
+</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>

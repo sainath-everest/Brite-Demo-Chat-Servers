@@ -1,12 +1,13 @@
 'use strict';
 
 var usernamePage = document.querySelector('#username-page');
+var userNameInput = document.querySelector('#name');
 var chatPage = document.querySelector('#chat-page');
 var usernameForm = document.querySelector('#usernameForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
+var receiverInput = document.querySelector('#receiver');
 var messageArea = document.querySelector('#messageArea');
-var userListArea = document.querySelector('#userListArea');
 var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
@@ -35,7 +36,10 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/topic', onMessageReceived);
+
+    stompClient.subscribe('/topic/'+userNameInput.value, onMessageReceived);
+ 
 
     // Tell your username to the server
     stompClient.send("/app/chat.addUser",
@@ -60,7 +64,8 @@ function sendMessage(event) {
         var chatMessage = {
             sender: username,
             content: messageInput.value,
-            type: 'CHAT'
+            type: 'CHAT',
+            receiver: receiverInput.value
         };
 
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
@@ -72,17 +77,15 @@ function sendMessage(event) {
 
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
+    console.log("new message")
 
     var messageElement = document.createElement('li');
     
-    var userElement = document.createElement('a');
-    var userNameText = document.createTextNode(message.sender);
-    userElement.appendChild(userNameText)
+
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' joined!';
-        userListArea.appendChild(userElement)
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' left!';

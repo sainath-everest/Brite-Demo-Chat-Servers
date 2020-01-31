@@ -46,6 +46,13 @@ public class Message {
 		public void setReceiver(String receiver) {
 			this.receiver = receiver;
 		}
+
+		@Override
+		public String toString() {
+			return "Message [type=" + type + ", content=" + content + ", sender=" + sender + ", receiver=" + receiver
+					+ "]";
+		}
+		
 	    
 	    
 

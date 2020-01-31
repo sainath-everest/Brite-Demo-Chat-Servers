@@ -19,37 +19,36 @@ import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 import com.everest.chatserver.model.Message;
 
-
-
-
 @Controller
 public class ChatController {
 	 @Autowired
 	    private SimpMessageSendingOperations messagingTemplate;
 	 
 	   @MessageMapping("/chat.sendMessage")
-	    @SendTo("/topic/public")
-	    public Message sendMessage(@Payload Message chatMessage) {
-		   List<Transport> transports = Arrays.asList(
-					new WebSocketTransport(new StandardWebSocketClient()),
-					new RestTemplateXhrTransport(new RestTemplate()));
-		   SockJsClient sockJsClient = new SockJsClient(transports);
+	    public Message sendMessage(@Payload Message chatMessage) {   
+		   if(chatMessage.getReceiver()== null ||chatMessage.getReceiver().equals("") ) {
+			   System.out.println("group message");
+			   messagingTemplate.convertAndSend("/topic",chatMessage);
+			   
+		   }
+			 
+		   else {
+			   System.out.println("perosnal message");
+			   messagingTemplate.convertAndSend("/topic/"+chatMessage.getReceiver(),chatMessage);
+			   
+		   }
+		   
 	        return chatMessage;
 	    }
 
 	    @MessageMapping("/chat.addUser")
-	    @SendTo("/topic/public")
+	    @SendTo("/topic")
 	    public Message addUser(@Payload Message chatMessage,
 	                               SimpMessageHeaderAccessor headerAccessor) {
 	        // Add username in web socket session
 	        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
 	        return chatMessage;
 	    }
-	    @MessageMapping("/personalchat")
-	    public void sendSpecific(@Payload Message msg) throws Exception {
-	       // Message out = new Message(msg.getSender(), msg.getContent(), new SimpleDateFormat("HH:mm").format(new Date()));
-	    	
-	        messagingTemplate.convertAndSendToUser(msg.getReceiver(), "/personal", msg);
-	    }
+
 
 }
