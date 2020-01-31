@@ -24,3 +24,7 @@ https://www.scaledrone.com/websockets/java
 5.How spring map user names with web-socket sessions and internal working of sending messages:
 
 https://stackoverflow.com/questions/22367223/sending-message-to-specific-user-on-spring-websocket
+
+6.Flutter SockJS client link:
+
+https://pub.dev/packages/sockjs_client_wrapper
