@@ -28,3 +28,16 @@ https://stackoverflow.com/questions/22367223/sending-message-to-specific-user-on
 6.Flutter SockJS client link:
 
 https://pub.dev/packages/sockjs_client_wrapper
+
+****************************************************************************************
+**Firebase push notifications using spring boot as server**
+
+https://blog.mestwin.net/send-push-notifications-from-spring-boot-server-side-application-using-fcm/
+
+Local setup of this demo example project:
+
+1.Download firebase admiinsdk json file(Download from any one of your project in firebase)
+
+2.Clone the project and place the adminsdk file in resources folder.
+
+3.Run the project and test end points using curl or postman
