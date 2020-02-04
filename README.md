@@ -41,3 +41,23 @@ Local setup of this demo example project:
 2.Clone the project and place the adminsdk file in resources folder.
 
 3.Run the project and test end points using curl or postman
+
+*********************************************************************************************
+**FCM VS APNS (for IOS push notification)**
+
+* Both APN and FCM work same for IOS.
+
+* If we use APN we need apple account and other related certificates etc(https://medium.com/@victorleungtw/apple-push-notification-with-java-spring-framework-b6ddada216cf).
+
+* Firebase providing APN interface for sending push notifications to IOS.(https://firebase.google.com/docs/cloud-messaging/ios/receive).
+
+* Based on my analysis we can go with FCM itself and no need to maintain extra configurations and setup for APN.
+* All the configurations related Andriod,IOS,and chrome web also(FCM support for it) we can maintain it single place(Fire base).
+
+* Info from other sources like if you are only developing ios app then APN is better option and if your app is cross platform then FCM is good option.
+
+* Other sources:
+
+https://stackoverflow.com/questions/42525917/apple-push-notification-or-firebase-push-notifications
+
+https://www.hexnode.com/blogs/comparison-apple-push-notification-service-apns-gcm-fcm-wns/
